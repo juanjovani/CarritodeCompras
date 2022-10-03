@@ -9,7 +9,7 @@ let ListadoCarrido = [];
 const agregarCurso= (e) =>{
     e.preventDefault();
     if(e.target.classList.contains('agregar-carrito')){
-        const curso=e.target.parentElement;
+        const curso=e.target.parentElement.parentElement;
         const infoCurso ={
             imagen:curso.querySelector('img').src,
             nombre: curso.querySelector('h4').textContent,
@@ -26,7 +26,32 @@ const agregarCurso= (e) =>{
 const agregarCarrito= curso =>{
     ListadoCarrido =[...ListadoCarrido, curso]
     console.log(ListadoCarrido);
+    generaHTML();
+
 }
+
+const generaHTML = () =>{
+    vaciarCarrito();
+    ListadoCarrido.forEach(curso =>{
+        const row= document.createElement('tr');
+        const cursoHTML = `
+        <td><img src=" ${curso.imagen}" width=100></td>
+    <td>${curso.nombre}</td>
+    <td>${curso.precio}</td>
+    <td>${curso.cantidad}</td>
+    
+    `;
+    row.innerHTML = cursoHTML;
+    contenedorCarrito.appendChild(row);
+
+    });
+}
+
+const vaciarCarrito= () =>{
+
+}
+
+
 
 const cargarEventListener = () =>{
     //agregar funcion de carga de cursos al carrito
